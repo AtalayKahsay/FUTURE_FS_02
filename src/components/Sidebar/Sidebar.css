@@ -28,3 +28,17 @@
 .sidebar a:hover {
   background: #34344a;
 }
+
+@media screen and (max-width: 768px)  {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  .sidebar nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
