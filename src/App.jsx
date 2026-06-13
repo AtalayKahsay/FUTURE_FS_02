@@ -1,15 +1,34 @@
 import { Routes, Route } from "react-router-dom"
 
+import Layout from "./components/Layout/Layout"
+
 import { Dashboard, Leads, AddLead, Login } from "./pages"
 
 function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/leads" element={<Leads />} />
-      <Route path="/add-lead" element={<AddLead />} />
+
+      <Route path="/" element={
+        <Layout>
+          <Dashboard />
+        </Layout>
+      } />
+
+      <Route path="/leads" element={
+        <Layout>
+          <Leads />
+        </Layout>
+      } />
+
+      <Route path="/add-lead" element={
+        <Layout>
+          <AddLead />
+        </Layout>
+      } />
+
       <Route path="/login" element={<Login />} />
+      
     </Routes>
   )
 }
