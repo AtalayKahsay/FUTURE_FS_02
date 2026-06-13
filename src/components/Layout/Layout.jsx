@@ -1,8 +1,18 @@
+import { Navbar, Sidebar } from "../components";
+import "./layout.css"
 
-
-function Layout() {
+function Layout({ Children }) {
   return (
-    <div>Layout</div>
+    <div className="layout">
+      <Sidebar />
+
+      <div className="main-section">
+        <Navbar />
+        <div className="page-content">
+          {Children}
+        </div>
+      </div>
+    </div>
   )
 }
 
