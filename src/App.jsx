@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom"
 
-import Layout from "./components/Layout/Layout"
+import { Layout } from "./components"
 
 import { Dashboard, Leads, AddLead, Login } from "./pages"
 
@@ -28,7 +28,7 @@ function App() {
       } />
 
       <Route path="/login" element={<Login />} />
-      
+
     </Routes>
   )
 }

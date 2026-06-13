@@ -1,7 +1,7 @@
-import { Navbar, Sidebar } from "../components";
+import { Navbar, Sidebar } from "../";
 import "./layout.css"
 
-function Layout({ Children }) {
+function Layout({ children }) {
   return (
     <div className="layout">
       <Sidebar />
@@ -9,7 +9,7 @@ function Layout({ Children }) {
       <div className="main-section">
         <Navbar />
         <div className="page-content">
-          {Children}
+          {children}
         </div>
       </div>
     </div>
