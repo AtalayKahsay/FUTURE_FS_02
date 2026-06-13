@@ -1,8 +1,19 @@
+import { Link } from "react-router-dom"
+import "./sidebar.css"
 
 
 function Sidebar() {
   return (
-    <div>Sidebar</div>
+    <div className="sidebar">
+      <h2 className="logo">Mini CRM</h2>
+
+      <nav>
+        <Link to="/">Dashboard</Link>
+        <Link to="/leads">Leads</Link>
+        <Link to="/add-lead">Add Lead</Link>
+        <Link to="/login">Login</Link>
+      </nav>
+    </div>
   )
 }
 
