@@ -1,8 +1,15 @@
-
+import "./navbar.css"
 
 function Navbar() {
   return (
-    <div>Navbar</div>
+    <div className="navbar">
+      <h3>CRM Dashboard</h3>
+
+      <div className="nav-right">
+        <span>Admin</span>
+        <button>Logout</button>
+      </div>
+    </div>
   )
 }
 
