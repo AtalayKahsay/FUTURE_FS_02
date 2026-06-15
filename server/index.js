@@ -1,22 +1,33 @@
-const express = require('express'),
-      mongoose = require('mongoose'),
-      cors = require('cors'),
-      morgan = require('morgan');
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const morgan = require('morgan');
 
 require('dotenv').config();
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5173', credentials: true }));
+// ── Middleware ─────────────────────────────────────────
+app.use(cors({
+  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(morgan('dev'));
 
-app.use('/api/auth',      require('./routes/auth.routes'));
-app.use('/api/leads',     require('./routes/lead.routes'));
+// ── Routes ─────────────────────────────────────────────
+app.use('/api/auth', require('./routes/auth.routes'));
+app.use('/api/leads', require('./routes/lead.routes'));
+app.use('/api/users', require('./routes/user.routes'));
 app.use('/api/dashboard', require('./routes/dashboard.routes'));
 
-app.get('/api/health', (req, res) => res.json({ status: 'OK' }));
+// ── Health Check ───────────────────────────────────────
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'OK' });
+});
 
+// ── Database + Server Start ────────────────────────────
 mongoose
   .connect(process.env.MONGO_URI || 'mongodb://localhost:27017/mini-crm')
   .then(() => {
