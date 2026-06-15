@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { MdEdit, MdDelete, MdArrowBack, MdEmail, MdPhone, MdBusiness, MdSource, MdCalendarToday, MdAttachMoney, MdSend, MdNote, MdDeleteOutline } from 'react-icons/md';
 import api from '../services/api';
