@@ -1,0 +1,26 @@
+:root {
+  --color-primary:#4f46e5;--color-primary-light:#6366f1;--color-primary-dark:#3730a3;--color-primary-bg:#eef2ff;
+  --color-new:#0ea5e9;--color-new-bg:#e0f2fe;--color-contacted:#f59e0b;--color-contacted-bg:#fef3c7;
+  --color-converted:#10b981;--color-converted-bg:#d1fae5;--color-lost:#ef4444;--color-lost-bg:#fee2e2;
+  --color-bg:#f8fafc;--color-surface:#fff;--color-surface-2:#f1f5f9;--color-border:#e2e8f0;--color-border-light:#f1f5f9;
+  --color-text-primary:#0f172a;--color-text-secondary:#475569;--color-text-muted:#94a3b8;
+  --color-sidebar-bg:#1e1b4b;--color-sidebar-text:#c7d2fe;--color-sidebar-active:#4f46e5;--color-sidebar-hover:rgba(255,255,255,0.08);
+  --font-display:'Space Grotesk',sans-serif;--font-body:'Inter',sans-serif;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;
+  --radius-sm:6px;--radius-md:10px;--radius-lg:16px;--radius-xl:24px;--radius-full:9999px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.06);--shadow-md:0 4px 12px rgba(0,0,0,0.08);--shadow-lg:0 10px 30px rgba(0,0,0,0.12);--shadow-primary:0 4px 14px rgba(79,70,229,0.3);
+  --transition-fast:150ms ease;--transition-base:250ms ease;--transition-slow:400ms ease;
+  --sidebar-width:260px;--header-height:64px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);background:var(--color-bg);color:var(--color-text-primary);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:var(--font-body);border:none;background:none}
+input,textarea,select{font-family:var(--font-body);font-size:14px}
+ul,ol{list-style:none}
+img{max-width:100%;display:block}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--color-surface-2)}
+::-webkit-scrollbar-thumb{background:var(--color-border);border-radius:var(--radius-full)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shimmer{0%{background-position:100% 0}100%{background-position:-100% 0}}
