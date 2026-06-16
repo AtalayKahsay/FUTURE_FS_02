@@ -4,10 +4,17 @@ import { useAuth } from '../../context/AuthContext';
 import './Header.css';
 
 const PAGE_TITLES = {
-  '/dashboard': { title: 'Dashboard',  sub: 'Overview of your leads pipeline' },
-  '/leads/add': { title: 'Add Lead',   sub: 'Create a new lead' },
-  '/leads':     { title: 'Leads',      sub: 'Manage your client leads' },
-  '/profile':   { title: 'Profile',    sub: 'Your account settings' },
+  '/dashboard':     { title: 'Dashboard',     sub: 'Overview of your leads pipeline' },
+  '/leads/add':     { title: 'Add Lead',       sub: 'Create a new lead' },
+  '/leads':         { title: 'Leads',          sub: 'Manage your client leads' },
+  '/customers':     { title: 'Customers',      sub: 'Converted leads and clients' },
+  '/deals':         { title: 'Deals',          sub: 'Track your sales pipeline' },
+  '/tasks':         { title: 'Tasks',          sub: 'Your to-do list and follow-ups' },
+  '/analytics':     { title: 'Analytics',      sub: 'Performance insights and reports' },
+  '/notifications': { title: 'Notifications',  sub: 'Recent activity and alerts' },
+  '/settings':      { title: 'Settings',       sub: 'System configuration' },
+  '/admin':         { title: 'Admin Panel',    sub: 'Manage users and roles' },
+  '/profile':       { title: 'Profile',        sub: 'Your account settings' },
 };
 
 const getPageInfo = (pathname) => {
