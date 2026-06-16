@@ -27,18 +27,10 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     };
     verify();
-  }, []);
+  }, [token]);
 
   const login = async (email, password) => {
     const { data } = await api.post('/auth/login', { email, password });
-    localStorage.setItem('crm_token', data.token);
-    setToken(data.token);
-    setUser(data.user);
-    return data;
-  };
-
-  const register = async (name, email, password) => {
-    const { data } = await api.post('/auth/register', { name, email, password });
     localStorage.setItem('crm_token', data.token);
     setToken(data.token);
     setUser(data.user);
@@ -54,7 +46,7 @@ export const AuthProvider = ({ children }) => {
   const updateUser = u => setUser(u);
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, login, register, logout, updateUser }}>
+    <AuthContext.Provider value={{ user, token, loading, login, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

@@ -30,7 +30,9 @@ const LoginPage = () => {
         </div>
         <button type="submit" className="auth-btn" disabled={loading}>{loading?<span className="auth-spinner"/>:'Sign In'}</button>
       </form>
-      <p className="auth-switch">Don't have an account? <Link to="/register" className="auth-link">Create one</Link></p>
+      <p className="auth-switch">
+        <Link to="/forgot-password" className="auth-link">Forgot your password?</Link>
+      </p>
     </div></div>
   );
 };
