@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const User = require('../models/User.model');
+const nodemailer = require('nodemailer');
 
 const genToken = id => jwt.sign({ id }, process.env.JWT_SECRET, {
   expiresIn: process.env.JWT_EXPIRE || '7d'
@@ -118,16 +119,53 @@ exports.forgotPassword = async (req, res) => {
 
     const token = crypto.randomBytes(32).toString('hex');
     user.resetPasswordToken  = crypto.createHash('sha256').update(token).digest('hex');
-    user.resetPasswordExpire = Date.now() + 30 * 60 * 1000; // 30 minutes
+    user.resetPasswordExpire = Date.now() + 30 * 60 * 1000; // 30 mins
     await user.save();
 
-    // Development mode: returning token directly for testing
+    // Build reset URL
+    const resetURL = `${process.env.CLIENT_URL}/reset-password/${token}`;
+
+    // Send email
+    const transporter = nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: process.env.EMAIL_PORT,
+      secure: false,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: `"Mini CRM" <${process.env.EMAIL_USER}>`,
+      to: user.email,
+      subject: 'Password Reset Request — Mini CRM',
+      html: `
+        <div style="font-family:Inter,sans-serif;max-width:500px;margin:0 auto;padding:32px;background:#f8fafc;border-radius:16px;">
+          <div style="background:#4f46e5;padding:20px;border-radius:12px;text-align:center;margin-bottom:24px;">
+            <h1 style="color:#fff;margin:0;font-size:24px;">Mini CRM</h1>
+          </div>
+          <h2 style="color:#0f172a;">Reset Your Password</h2>
+          <p style="color:#475569;">Hi <strong>${user.name}</strong>,</p>
+          <p style="color:#475569;">You requested to reset your password. Click the button below. This link expires in <strong>30 minutes</strong>.</p>
+          <a href="${resetURL}" style="display:inline-block;margin:24px 0;padding:12px 28px;background:#4f46e5;color:#fff;border-radius:10px;text-decoration:none;font-weight:600;font-size:15px;">
+            Reset Password
+          </a>
+          <p style="color:#94a3b8;font-size:13px;">If you didn't request this, ignore this email. Your password won't change.</p>
+          <p style="color:#94a3b8;font-size:12px;margin-top:24px;">Or copy this link:<br/><a href="${resetURL}" style="color:#4f46e5;">${resetURL}</a></p>
+        </div>
+      `,
+    });
+
     res.status(200).json({
       success: true,
-      message: 'Reset token generated.',
-      resetToken: token
+      message: `Password reset link sent to ${user.email}`,
     });
-  } catch (e) { res.status(500).json({ success: false, message: e.message }); }
+
+  } catch (e) {
+    console.error('Email error:', e.message);
+    res.status(500).json({ success: false, message: 'Failed to send email. Check email config.' });
+  }
 };
 
 // ── PUBLIC: Reset password ────────────────────────────

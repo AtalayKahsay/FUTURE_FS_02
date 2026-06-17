@@ -28,7 +28,7 @@ const LeadDetailPage = () => {
     {label:'Company',value:lead.company||'—',icon:MdBusiness},
     {label:'Source',value:lead.source?.replace(/_/g,' '),icon:MdSource},
     {label:'Value',value:lead.value?`$${lead.value.toLocaleString()}`:'—',icon:MdAttachMoney},
-    {label:'Follow-up',value:lead.followUpDate?new Date(lead.followUpDate).toLocaleDateString():'—',icon:MdCalendarToday},
+    {label:'Follow-up',value:lead.followUpDate?lead.followUpDate.split('T')[0]:'—',icon:MdCalendarToday},
     {label:'Created',value:new Date(lead.createdAt).toLocaleDateString(),icon:MdCalendarToday},
     {label:'Created By',value:lead.createdBy?.name||'—',icon:MdNote},
   ];
