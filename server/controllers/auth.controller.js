@@ -192,6 +192,17 @@ exports.forgotPassword = async (req, res) => {
       `,
     });
 
+    res.status(200).json({
+      success: true,
+      message: `Password reset link sent to ${user.email}`,
+    });
+
+  } catch (e) {
+    console.error('Email error:', e.message);
+    res.status(500).json({ success: false, message: 'Failed to send email. Check email config.' });
+  }
+};
+
 // ── PUBLIC: Reset password ────────────────────────────
 exports.resetPassword = async (req, res) => {
   try {
