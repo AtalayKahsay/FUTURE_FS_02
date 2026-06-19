@@ -135,99 +135,47 @@ exports.forgotPassword = async (req, res) => {
     await user.save();
 
     const resetURL = `${process.env.CLIENT_URL}/reset-password/${token}`;
-    
-    // Send Email
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
-      pool: true,
-      maxConnections: 5,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-      tls: {
-        rejectUnauthorized: false,
-      },
-    });
 
     try {
-
-      await transporter.sendMail({
-        from: `"Mini CRM" <${process.env.EMAIL_USER}>`,
+      await resend.emails.send({
+        from: 'Mini CRM <onboarding@resend.dev>',
         to: user.email,
         subject: 'Password Reset Request — Mini CRM',
         html: `
         <div style="font-family:Inter,sans-serif;max-width:500px;margin:auto;padding:32px;background:#f8fafc;border-radius:16px">
-
-          <h1 style="color:#4f46e5;text-align:center">
-            Mini CRM
-          </h1>
-
+          <h1 style="color:#4f46e5;text-align:center">Mini CRM</h1>
           <h2>Reset Your Password</h2>
-
-          <p>
-            Hi <strong>${user.name}</strong>,
-          </p>
-
-          <p>
-            You requested to reset your password.
-            This link expires in <strong>30 minutes</strong>.
-          </p>
-
-          <a 
-          href="${resetURL}"
-          style="
-          display:inline-block;
-          padding:12px 28px;
-          background:#4f46e5;
-          color:white;
-          border-radius:10px;
-          text-decoration:none">
-          Reset Password
+          <p>Hi <strong>${user.name}</strong>,</p>
+          <p>You requested to reset your password. This link expires in <strong>30 minutes</strong>.</p>
+          <a href="${resetURL}" style="display:inline-block;padding:12px 28px;background:#4f46e5;color:white;border-radius:10px;text-decoration:none">
+            Reset Password
           </a>
-
-          <p style="margin-top:20px">
-            ${resetURL}
-          </p>
-
+          <p style="margin-top:20px">${resetURL}</p>
         </div>
         `,
       });
 
-
-      console.log("✅ Reset email sent");
-
+      console.log("✅ Reset email sent via Resend");
 
     } catch (emailError) {
-
-      // Demo protection: keep app working if SMTP fails
       console.log("Email failed:", emailError.message);
-
       return res.status(200).json({
         success: true,
         message: "If this email exists, you will receive a password reset link shortly."
       });
-
     }
-
 
     res.status(200).json({
       success: true,
       message: `Password reset link sent to ${user.email}`,
     });
 
-
   } catch (e) {
-
     console.error("Forgot password error:", e.message);
-
     res.status(500).json({
-      success:false,
-      message:"Something went wrong."
+      success: false,
+      message: "Something went wrong."
     });
-
   }
 };
 
